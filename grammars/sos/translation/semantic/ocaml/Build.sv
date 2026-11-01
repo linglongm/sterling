@@ -51,15 +51,13 @@ IOVal<Maybe<[(String, Term)]>> ::= d::DeriveConfig j::Judgment inArgs::[(String,
      foldr(\ p::(String, Term) rest::String ->
               " (" ++ p.2.ocamlExpr.pp ++ ")" ++ rest,
            "", inArgs);
-   local callExpr::String = funcName ++ " [] " ++ argsStr;
+   local callExpr::String = argsStr;
    local output::String =
-     "\n(* Generated OCaml call for input program. *)\n"
-     ++ "(* In utop, the binding to `result` will be auto-displayed. *)\n"
-     ++ "let () = print_endline \"-- see result in utop --\"\n"
-     ++ "let result = " ++ callExpr ++ "\n";
+    "let expr = " ++ callExpr ++ "\n";
    local printed::IOToken = printT(output, ioin);
-   local appended::IOToken = appendFileT("${ocamlFile}.ml", output, printed);
-   return ioval(appended, nothing());
+   -- Write the generated call to a NEW file alongside the translated semantics.
+   local written::IOToken = writeFileT("${ocamlFile}_run.ml", output, printed);
+   return ioval(written, nothing());
 }""";
 
 local endFunction::String =

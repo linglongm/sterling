@@ -2,9 +2,9 @@
 
 # sterling $@ -I .. imp:composed
 # (cd ../.. && ./deep-clean && ./build --clean --mwda)
-echo "---------------------------------"
-echo "Build completed."
-echo "---------------------------------"
+# echo "---------------------------------"
+# echo "Build completed."
+# echo "---------------------------------"
 sterling --ocaml --silver-concrete -I .. $@ imp_demo:host
 # /home/linglong/sterling/generated/ocaml/imp_demo:host.ml
-echo "IMP's OCaml translation is at generated/ocaml/imp_demo:host.ml"
+# echo "IMP's OCaml translation is at generated/ocaml/imp_demo:host.ml"
